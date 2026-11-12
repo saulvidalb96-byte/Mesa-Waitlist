@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
-import { configured, supabase } from "./lib/supabase";
+import { configProblem, configured, supabase } from "./lib/supabase";
 import type { Business, Membership, Role } from "./lib/types";
 import { Spinner } from "./components/ui";
 import Login from "./pages/Login";
@@ -102,9 +102,11 @@ function SetupNeeded() {
       <div className="logo">{APP_NAME}</div>
       <div className="card">
         <h3>Almost there</h3>
+        <p className="small">This site isn't connected to its database yet:</p>
+        <p style={{ fontWeight: 600 }}>{configProblem}</p>
         <p className="small">
-          This site isn't connected to its database yet. In Netlify, add the environment variables
-          <b> VITE_SUPABASE_URL</b> and <b>VITE_SUPABASE_ANON_KEY</b>, then redeploy. The README has the steps.
+          Fix it in Netlify under <b>Project configuration → Environment variables</b>, then go to
+          <b> Deploys → Trigger deploy → Deploy project</b>.
         </p>
       </div>
     </div>
