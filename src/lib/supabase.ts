@@ -1,6 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 
-const rawUrl = ((import.meta.env.VITE_SUPABASE_URL as string | undefined) || "").trim().replace(/\/+$/, "");
+const rawUrl = ((import.meta.env.VITE_SUPABASE_URL as string | undefined) || "").trim()
+  .replace(/\/+$/, "")
+  .replace(/\/(rest|auth|realtime|storage|functions)\/v1$/i, "") // Supabase's Data API page shows the URL with /rest/v1
+  .replace(/\/+$/, "");
 const key = ((import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) || "").trim();
 
 /** Why the site can't connect, in plain words — or "" when everything looks right. */

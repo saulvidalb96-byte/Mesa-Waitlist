@@ -4,7 +4,8 @@ export const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" } });
 
 export function adminClient(): SupabaseClient | null {
-  const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+  const url = (process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || "")
+    .trim().replace(/\/+$/, "").replace(/\/(rest|auth|realtime|storage|functions)\/v1$/i, "");
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
   return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
